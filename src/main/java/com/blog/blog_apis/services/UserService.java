@@ -25,8 +25,9 @@ public class UserService {
     }
 
     public UserDto updateUser(UserDto userDto, Integer userId) {
+        long id = Long.valueOf(userId);
         User user = this.userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", Long(userId)));
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
         user.setName(userDto.getName());
         user.setEmail(userDto.getEmail());
         user.setAbout(userDto.getAbout());
@@ -35,17 +36,15 @@ public class UserService {
         return this.EntityToDto(this.userRepository.save(user));
     }
 
-    private Long Long(Integer userId) {
-        return Long(userId);
-    }
-
     public UserDto getUserById(Integer userId) {
+        long id = Long.valueOf(userId);
         return this.EntityToDto(this.userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", Long(userId))));
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id)));
     }
 
     public List<UserDto> getAllUsers() {
-        List<UserDto> users = this.userRepository.findAll().stream().map(user->this.EntityToDto(user)).collect(Collectors.toList());
+        List<UserDto> users = this.userRepository.findAll().stream().map(user -> this.EntityToDto(user))
+                .collect(Collectors.toList());
         return users;
     }
 
