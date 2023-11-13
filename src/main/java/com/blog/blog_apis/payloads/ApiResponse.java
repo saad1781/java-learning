@@ -13,4 +13,10 @@ public class ApiResponse<T> {
     private String message;
     private Boolean success;
     private T data;
+
+    // Constructors without data field
+    public ApiResponse(String message, Boolean success) {
+        this.message = message;
+        this.success = success;
+    }
 }
