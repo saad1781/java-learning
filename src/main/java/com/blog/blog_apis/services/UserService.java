@@ -1,16 +1,17 @@
 package com.blog.blog_apis.services;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.blog.blog_apis.entities.User;
 import com.blog.blog_apis.payloads.UserDto;
 import com.blog.blog_apis.repositories.UserRepo;
 import com.blog.blog_apis.exceptions.*;;
 
+@Service
 public class UserService {
     @Autowired
     private UserRepo userRepository;
@@ -18,12 +19,12 @@ public class UserService {
     UserService() {
     }
 
-    UserDto createUser(UserDto user) {
+    public UserDto createUser(UserDto user) {
 
         return this.EntityToDto(this.userRepository.save(this.DtoToEntity(user)));
     }
 
-    UserDto updateUser(UserDto userDto, Integer userId) {
+    public UserDto updateUser(UserDto userDto, Integer userId) {
         User user = this.userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", Long(userId)));
         user.setName(userDto.getName());
@@ -38,17 +39,17 @@ public class UserService {
         return Long(userId);
     }
 
-    UserDto getUserById(Integer userId) {
+    public UserDto getUserById(Integer userId) {
         return this.EntityToDto(this.userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", Long(userId))));
     }
 
-    List<UserDto> getAllUsers() {
+    public List<UserDto> getAllUsers() {
         List<UserDto> users = this.userRepository.findAll().stream().map(user->this.EntityToDto(user)).collect(Collectors.toList());
         return users;
     }
 
-    void deleteUser(Integer userId) {
+    public void deleteUser(Integer userId) {
         this.userRepository.deleteById(userId);
 
     }
