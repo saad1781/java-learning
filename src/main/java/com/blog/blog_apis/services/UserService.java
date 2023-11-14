@@ -65,6 +65,7 @@ public class UserService {
 
     private UserDto EntityToDto(User user) {
         UserDto userDto = new UserDto();
+        userDto.setId(user.getId());
         userDto.setName(user.getName());
         userDto.setPassword(user.getPassword());
         userDto.setAbout(user.getAbout());

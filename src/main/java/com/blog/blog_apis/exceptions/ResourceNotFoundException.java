@@ -1,7 +1,5 @@
 package com.blog.blog_apis.exceptions;
 
-import java.text.Format;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +12,7 @@ public class ResourceNotFoundException extends RuntimeException {
 
 
     public ResourceNotFoundException(String resourceName, String fieldName, Long fieldValue) {
-        super(String.format("%s not found with %s : %l", resourceName, fieldName, fieldValue));
+        super(String.format("%s not found with %s : %s", resourceName, fieldName, fieldValue));
         this.resourceName = resourceName;
         this.fieldName = fieldName;
         this.fieldValue = fieldValue;
