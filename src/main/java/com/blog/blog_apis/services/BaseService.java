@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.blog.blog_apis.exceptions.ResourceNotFoundException;
 
 public class BaseService<Repo extends JpaRepository<E, Integer>, E, Dto> {
@@ -34,6 +37,21 @@ public class BaseService<Repo extends JpaRepository<E, Integer>, E, Dto> {
 
         return this.convertToDto(this.repo.save(entity));
     }
+
+    public Dto getById(Integer Id){
+        long idForError = Long.valueOf(Id);
+        E entity = this.repo.findById(Id)
+                .orElseThrow(() -> new ResourceNotFoundException("Entity", "id", idForError));
+        return this.convertToDto(entity);
+
+    }
+
+    public List<Dto> getAll() {
+        List<Dto> entities = this.repo.findAll().stream().map(e -> this.convertToDto(e))
+                .collect(Collectors.toList());
+        return entities;
+    }
+
 
     private E convertToEntity(Dto dto) {
         return modelMapper.map(dto, entityClass);
