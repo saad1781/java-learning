@@ -14,7 +14,7 @@ public class UserDto {
     private int id;
     @NotBlank()
     private String name;
-    @Email()
+    @Email(message = "Not a valid email.")
     @NotEmpty()
     private String email;
     private String password;
