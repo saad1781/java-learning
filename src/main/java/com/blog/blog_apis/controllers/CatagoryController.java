@@ -41,6 +41,7 @@ public class CatagoryController {
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<CatagoryDto>> updateCatagory(@RequestBody CatagoryDto catagoryDto,
             @PathVariable("id") int id) {
+        catagoryDto.setId(id);
         return new ResponseEntity<ApiResponse<CatagoryDto>>(
                 new ApiResponse<CatagoryDto>("user Update successfully", true,
                         this.catagoryService.update(catagoryDto, id)),
