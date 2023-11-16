@@ -2,6 +2,9 @@ package com.blog.blog_apis.entities;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,9 +34,11 @@ public class Post {
     private Date addedDate;
 
     @ManyToOne()
+    @JsonManagedReference()
     private Catagory catagory;
     
 
     @ManyToOne()
+    @JsonManagedReference()
     private User user;
 }
