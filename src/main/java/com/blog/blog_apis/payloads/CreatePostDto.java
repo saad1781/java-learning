@@ -12,4 +12,6 @@ import lombok.Setter;
 public class CreatePostDto {
     private String title;
     private String content;
+    private Integer catagory;
+    private Integer user;
 }
